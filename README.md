@@ -1,2 +1,4 @@
 # UniteAndFightKOKENDO
-UniteAndFightKOKENDO
+古戦場の貢献度を起動毎に取得します。
+ついでに相手のアクティブ人数も取得します。
+自分の団のアクティブ人数は面倒くさくて取得してません。
