@@ -1,17 +1,13 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 Created on Wed Jan 23 19:21:19 2019
 
-@author: syou
+@author: 
 """
 
 from selenium import webdriver
 from time import sleep
-#import datetime
-#import pandas as pd
-#import random
 import gspread
-#import json
 from oauth2client.service_account import ServiceAccountCredentials 
 
 #chrome起動
@@ -26,13 +22,10 @@ sleep(3)
 
 #貢献度取得
 guildPoint = driver.find_element_by_class_name("txt-guild-point").text
-print(guildPoint)
 rivalPoint = driver.find_element_by_class_name("txt-rival-point").text
-print(rivalPoint)
 
 #直近1時間のログイン人数取得（現在のところ相手団のみ）
 rivalAirshipURL = driver.find_element_by_class_name("btn-rival-airship").get_attribute('data-href')
-print(rivalAirshipURL)
 
 #相手団ページへ遷移
 driver.get("http://game.granbluefantasy.jp/#" + rivalAirshipURL)
@@ -42,11 +35,9 @@ sleep(3)
 elements = driver.find_elements_by_class_name("prt-status-value")
 for element in elements:
     rivalLoginMem = element.text
-print(rivalLoginMem)
 
 #ブラウザを閉じる
 driver.close()
-
 
 ##以下スプレッドシート関連
 #2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
@@ -59,19 +50,16 @@ gc = gspread.authorize(credentials)
 #共有設定したスプレッドシートキーを変数[SPREADSHEET_KEY]に格納する。
 SPREADSHEET_KEY = '*SPREADSHEET_KEY*'
 
-
 #共有設定したスプレッドシートのシート1を開く
 worksheet = gc.open_by_key(SPREADSHEET_KEY).sheet1
 
 #F2セルの値を受け取る
 import_value = int(worksheet.acell('F2').value)
-print(import_value)
 
 #spreadsheetへの書き込み
 worksheet.update_cell(import_value,2,guildPoint)
 worksheet.update_cell(import_value,3,rivalPoint)
 worksheet.update_cell(import_value,4,rivalLoginMem)
-
 
 import_value += 1
 #最後の処理
